@@ -4,8 +4,10 @@
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     if (loader) {
-        loader.classList.add('hidden');
-        setTimeout(() => loader.remove(), 600);
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => loader.remove(), 800);
+        }, 600);
     }
 });
 
@@ -19,37 +21,96 @@ const backToTop = document.getElementById('backToTop');
 const contactForm = document.getElementById('contactForm');
 const navAnchors = document.querySelectorAll('.nav-links a');
 const statNumbers = document.querySelectorAll('.stat-number');
+const scrollProgress = document.getElementById('scrollProgress');
+const cursorGlow = document.getElementById('cursorGlow');
+const themeToggle = document.getElementById('themeToggle');
 
 // ===========================
-// HEADER SCROLL EFFECT
+// DARK MODE TOGGLE
+// ===========================
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    });
+}
+
+// ===========================
+// CURSOR GLOW EFFECT (Desktop)
+// ===========================
+if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+    let mouseX = 0, mouseY = 0;
+    let glowX = 0, glowY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animateGlow() {
+        glowX += (mouseX - glowX) * 0.08;
+        glowY += (mouseY - glowY) * 0.08;
+        cursorGlow.style.left = glowX + 'px';
+        cursorGlow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+}
+
+// ===========================
+// SCROLL PROGRESS BAR
+// ===========================
+function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    if (scrollProgress) {
+        scrollProgress.style.width = progress + '%';
+    }
+}
+
+// ===========================
+// HEADER & SCROLL EFFECTS
 // ===========================
 window.addEventListener('scroll', () => {
+    // Header scroll
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
 
-    // Back to top button
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
+    // Back to top
+    if (backToTop) {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
     }
 
-    // Active nav link on scroll
+    // Scroll progress
+    updateScrollProgress();
+
+    // Active nav
     updateActiveNav();
 });
 
 // ===========================
-// MOBILE MENU TOGGLE
+// MOBILE MENU
 // ===========================
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-});
+if (hamburger) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+}
 
-// Close menu when clicking a link
 navAnchors.forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -57,7 +118,6 @@ navAnchors.forEach(link => {
     });
 });
 
-// Close menu when clicking outside
 document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
         hamburger.classList.remove('active');
@@ -66,11 +126,11 @@ document.addEventListener('click', (e) => {
 });
 
 // ===========================
-// ACTIVE NAV LINK ON SCROLL
+// ACTIVE NAV ON SCROLL
 // ===========================
 function updateActiveNav() {
     const sections = document.querySelectorAll('section[id]');
-    const scrollY = window.scrollY + 100;
+    const scrollY = window.scrollY + 120;
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -89,30 +149,57 @@ function updateActiveNav() {
 }
 
 // ===========================
-// ANIMATED COUNTER
+// ANIMATED COUNTERS
 // ===========================
 function animateCounters() {
     statNumbers.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
+        const duration = 2200;
+        const startTime = performance.now();
 
-        const updateCounter = () => {
-            current += step;
-            if (current < target) {
-                counter.textContent = Math.floor(current).toLocaleString();
+        function easeOutExpo(t) {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
+
+        function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutExpo(progress);
+            const current = Math.floor(easedProgress * target);
+
+            counter.textContent = current.toLocaleString();
+
+            if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
                 counter.textContent = target.toLocaleString();
             }
-        };
+        }
 
-        updateCounter();
+        requestAnimationFrame(updateCounter);
     });
 }
 
-// Intersection Observer for counter animation
+// ===========================
+// INTERSECTION OBSERVER - REVEAL
+// ===========================
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -60px 0px'
+});
+
+document.querySelectorAll('[data-reveal]').forEach(el => {
+    revealObserver.observe(el);
+});
+
+// Counter observer
 const heroSection = document.querySelector('.hero');
 const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -121,38 +208,41 @@ const counterObserver = new IntersectionObserver((entries) => {
             counterObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.5 });
+}, { threshold: 0.3 });
 
 if (heroSection) {
     counterObserver.observe(heroSection);
 }
 
 // ===========================
-// SCROLL REVEAL ANIMATION
+// 3D TILT EFFECT ON CARDS
 // ===========================
-const revealElements = document.querySelectorAll(
-    '.service-card, .why-card, .process-step, .testimonial-card, .gallery-item, .contact-card, .about-content, .about-image'
-);
+function initTiltCards() {
+    const tiltCards = document.querySelectorAll('[data-tilt]');
 
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            revealObserver.unobserve(entry.target);
-        }
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / centerY * -4;
+            const rotateY = (x - centerX) / centerX * 4;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
     });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
+}
 
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    revealObserver.observe(el);
-});
+// Only enable tilt on desktop
+if (window.matchMedia('(pointer: fine)').matches) {
+    initTiltCards();
+}
 
 // ===========================
 // CONTACT FORM HANDLING
@@ -161,17 +251,17 @@ if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Get form data
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
 
-        // Simple validation
         if (!data.name || !data.phone || !data.service) {
-            alert('Please fill in all required fields.');
+            // Shake animation on button
+            const btn = contactForm.querySelector('button[type="submit"]');
+            btn.style.animation = 'shake 0.5s ease';
+            setTimeout(() => btn.style.animation = '', 500);
             return;
         }
 
-        // Build WhatsApp message
         const serviceName = contactForm.querySelector('#service option:checked')?.textContent || data.service;
         let message = `*New Appointment Request*\n\n`;
         message += `*Name:* ${data.name}\n`;
@@ -181,22 +271,21 @@ if (contactForm) {
         message += `*Service:* ${serviceName}\n`;
         if (data.message) message += `*Message:* ${data.message}\n`;
 
-        // Open WhatsApp with pre-filled message
         const whatsappURL = `https://wa.me/94776635799?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
 
-        // Show success message
+        // Show success
         const formWrapper = contactForm.closest('.contact-form-wrapper');
         contactForm.style.display = 'none';
 
         const successDiv = document.createElement('div');
         successDiv.className = 'form-success show';
         successDiv.innerHTML = `
-            <i class="fab fa-whatsapp" style="font-size: 48px; color: #25D366;"></i>
+            <i class="fab fa-whatsapp" style="font-size: 56px; color: #25D366;"></i>
             <h3>Redirected to WhatsApp!</h3>
             <p>Your appointment details have been sent via WhatsApp. We'll respond shortly to confirm your booking.</p>
             <br>
-            <button class="btn btn-primary" onclick="resetForm()">
+            <button class="btn btn-primary btn-glow" onclick="resetForm()">
                 <i class="fas fa-redo"></i> Submit Another
             </button>
         `;
@@ -204,16 +293,17 @@ if (contactForm) {
     });
 }
 
-function resetForm() {
+// Reset form global function
+window.resetForm = function() {
     const formWrapper = document.querySelector('.contact-form-wrapper');
     const successDiv = formWrapper.querySelector('.form-success');
     if (successDiv) successDiv.remove();
     contactForm.style.display = 'block';
     contactForm.reset();
-}
+};
 
 // ===========================
-// SMOOTH SCROLL FOR ALL ANCHOR LINKS
+// SMOOTH SCROLL
 // ===========================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -231,11 +321,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===========================
+// MAGNETIC BUTTON EFFECT
+// ===========================
+if (window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.btn-glow').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) translateY(-2px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+        });
+    });
+}
+
+// ===========================
 // PAGE LOAD
 // ===========================
 window.addEventListener('load', () => {
-    // Trigger initial counter if hero is visible
     if (heroSection && heroSection.getBoundingClientRect().top < window.innerHeight) {
         animateCounters();
     }
+    updateScrollProgress();
 });
