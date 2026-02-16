@@ -2295,18 +2295,63 @@ body.nav-open {
 
     .hamburger span { width: 18px; }
 
-    .logo { order: 1; flex: 1; }
+    .logo {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .logo > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: calc(100vw - 200px);
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    /* Header always has background on mobile for readability */
+    #header {
+        background: rgba(10, 15, 28, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    #header.scrolled {
+        background: var(--glass-bg);
+    }
 
     .navbar { padding: 10px 0; }
 
     /* === Hero Mobile === */
-    .hero { min-height: 100vh; min-height: 100dvh; }
+    .hero { min-height: 100vh; min-height: 100dvh; padding-top: 80px; }
     .hero-content { padding: 0 16px; }
     .hero-content h1 { font-size: 36px; letter-spacing: -1px; }
     .hero-desc { font-size: 15px; margin-bottom: 32px; line-height: 1.7; }
     .hero-badge { font-size: 12px; padding: 8px 18px; margin-bottom: 22px; }
-    .hero-stats { gap: 12px; }
-    .stat-card { padding: 16px 20px; min-width: 0; flex: 1; }
+    .hero-stats { gap: 12px; flex-direction: column; }
+    .stat-card {
+        padding: 20px 24px;
+        min-width: 0;
+        flex: auto;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.06) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 16px;
+    }
     .stat-number { font-size: 28px; }
     .stat-suffix { font-size: 20px; }
     .stat-label { font-size: 11px; }
