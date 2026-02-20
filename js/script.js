@@ -276,8 +276,19 @@ if (contactForm) {
         if (!data.name || !data.phone || !data.service) {
             // Shake animation on button
             const btn = contactForm.querySelector('button[type="submit"]');
+            btn.style.animation = 'none';
+            void btn.offsetWidth; // Force reflow to restart animation
             btn.style.animation = 'shake 0.5s ease';
-            setTimeout(() => btn.style.animation = '', 500);
+            setTimeout(() => btn.style.animation = '', 600);
+
+            // Highlight empty required fields
+            ['name', 'phone', 'service'].forEach(fieldId => {
+                const field = contactForm.querySelector(`#${fieldId}`);
+                if (field && !field.value) {
+                    field.style.borderColor = '#ef4444';
+                    setTimeout(() => field.style.borderColor = '', 2000);
+                }
+            });
             return;
         }
 
