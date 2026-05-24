@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -43,11 +43,14 @@
     <header id="header">
         <nav class="navbar">
             <div class="nav-container">
-                <a href="#home" class="logo">
+                <a href="#home" class="logo" aria-label="New Auto Air Condition home">
                     <div class="logo-icon">
                         <i class="fas fa-snowflake"></i>
                     </div>
-                    <span>New Auto Air Condition</span>
+                    <div class="logo-text">
+                        <strong>New Auto AC</strong>
+                        <span>Vehicle Cooling Studio</span>
+                    </div>
                 </a>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="active"><span>Home</span></a></li>
@@ -88,38 +91,119 @@
         </div>
         <div class="hero-noise"></div>
         <div class="hero-grid-pattern"></div>
-        <div class="hero-content">
-            <!-- <div class="hero-badge" data-reveal>
-                <div class="badge-dot"></div>
-                Certified AC Specialists
-            </div> -->
-            <h1 data-reveal>
-                Expert Vehicle
-                <span class="gradient-text">Air Conditioning</span>
-                Services
-            </h1>
-            <p class="hero-desc" data-reveal>Keep your ride cool and comfortable. We specialize in auto AC repair,
-                maintenance, and installation for all vehicle makes and models.</p>
-            <div class="hero-buttons" data-reveal>
-                <a href="#contact" class="btn btn-primary btn-glow">
-                    <i class="fas fa-calendar-check"></i> Book Appointment
-                </a>
-                <a href="#services" class="btn btn-glass">
-                    <i class="fas fa-wrench"></i> Our Services
-                </a>
-            </div>
-            <div class="hero-stats" data-reveal>
-                <div class="stat-card glass-card">
-                    <span class="stat-number" data-target="30">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Years Experience</span>
+        <div class="container hero-shell">
+            <div class="hero-content">
+                <div class="hero-copy">
+                    <div class="hero-badge" data-reveal>
+                        <div class="badge-dot"></div>
+                        Same-day diagnostics in Gampaha
+                    </div>
+                    <p class="hero-kicker" data-reveal>Premium auto AC care for cars, SUVs, vans, and hybrids</p>
+                    <h1 data-reveal>
+                        Make every drive feel
+                        <span class="gradient-text">cold, quiet, and reliable.</span>
+                    </h1>
+                    <p class="hero-desc" data-reveal>From quick gas recharge to full compressor replacement, we handle the complete vehicle AC system with precise diagnostics, clean workmanship, and fast turnaround.</p>
+                    <div class="hero-buttons" data-reveal>
+                        <a href="#contact" class="btn btn-primary btn-glow">
+                            <i class="fas fa-calendar-check"></i> Book Appointment
+                        </a>
+                        <a href="#services" class="btn btn-glass">
+                            <i class="fas fa-wrench"></i> Explore Services
+                        </a>
+                    </div>
+                    <div class="hero-proof" data-reveal>
+                        <div class="hero-proof-item">
+                            <span class="proof-label">Google rating</span>
+                            <strong>4.8/5 trusted by local drivers</strong>
+                        </div>
+                        <div class="hero-proof-item">
+                            <span class="proof-label">Response time</span>
+                            <strong>Fast booking through call or WhatsApp</strong>
+                        </div>
+                        <div class="hero-proof-item">
+                            <span class="proof-label">Coverage</span>
+                            <strong>All makes, models, and work vehicles</strong>
+                        </div>
+                    </div>
+                    <!-- <div class="hero-stats" data-reveal>
+                        <div class="stat-card glass-card">
+                            <span class="stat-number" data-target="30">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Years of trusted workshop experience</span>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <span class="stat-number" data-target="5000">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Vehicles cooled, repaired, and maintained</span>
+                        </div>
+                        <div class="stat-card glass-card">
+                            <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+                            <span class="stat-label">Focus on comfort, quality, and clarity</span>
+                        </div> -->
+                    </div>
                 </div>
-                <div class="stat-card glass-card">
-                    <span class="stat-number" data-target="5000">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Vehicles Serviced</span>
-                </div>
-                <div class="stat-card glass-card">
-                    <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
-                    <span class="stat-label">Satisfaction Rate</span>
+                <div class="hero-visual" data-reveal>
+                    <div class="hero-panel hero-main-panel glass-card">
+                        <div class="hero-panel-top">
+                            <span class="panel-chip">Cooling command center</span>
+                            <span class="panel-status"><span class="status-dot"></span>Same-day slots</span>
+                        </div>
+                        <h3>One premium workflow for every AC problem</h3>
+                        <p>We inspect, diagnose, repair, and validate cooling performance before the vehicle leaves the workshop.</p>
+                        <div class="hero-service-list">
+                            <div class="hero-service-item">
+                                <div class="service-item-icon"><i class="fas fa-stethoscope"></i></div>
+                                <div>
+                                    <strong>Smart diagnosis</strong>
+                                    <span>Pressure tests, leak tracing, and compressor health checks.</span>
+                                </div>
+                            </div>
+                            <div class="hero-service-item">
+                                <div class="service-item-icon"><i class="fas fa-fan"></i></div>
+                                <div>
+                                    <strong>Clean repair execution</strong>
+                                    <span>Precision fixes with quality parts and tidy system work.</span>
+                                </div>
+                            </div>
+                            <div class="hero-service-item">
+                                <div class="service-item-icon"><i class="fas fa-temperature-low"></i></div>
+                                <div>
+                                    <strong>Performance verification</strong>
+                                    <span>Final cooling checks so the cabin feels right before handover.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-panel-metrics">
+                            <div class="panel-metric">
+                                <strong>15 min</strong>
+                                <span>Rapid system assessment</span>
+                            </div>
+                            <div class="panel-metric">
+                                <strong>30+ yrs</strong>
+                                <span>Hands-on workshop experience</span>
+                            </div>
+                            <div class="panel-metric">
+                                <strong>OEM care</strong>
+                                <span>Quality parts and careful finishing</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-floating-card hero-availability glass-card">
+                        <span class="floating-label">Today's service mix</span>
+                        <div class="floating-bars">
+                            <span style="--bar-size: 92%"></span>
+                            <span style="--bar-size: 76%"></span>
+                            <span style="--bar-size: 64%"></span>
+                            <span style="--bar-size: 86%"></span>
+                        </div>
+                        <p>Recharge, leak detection, maintenance, and compressor jobs booked every week.</p>
+                    </div>
+                    <div class="hero-floating-card hero-trust-card glass-card">
+                        <div class="trust-card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <span class="floating-label">Warranty-backed work</span>
+                            <strong>Clean fixes with after-service confidence built in.</strong>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -159,15 +243,44 @@
                 <div class="about-image" data-reveal>
                     <div class="about-img-wrapper">
                         <div class="about-img-placeholder">
-                            <i class="fas fa-car"></i>
-                            <span>Auto AC Experts</span>
+                            <div class="about-showcase">
+                                <div class="about-showcase-top">
+                                    <span>Workshop standard</span>
+                                    <span>Since 1994</span>
+                                </div>
+                                <div class="about-showcase-main">
+                                    <div class="about-showcase-icon"><i class="fas fa-snowflake"></i></div>
+                                    <div>
+                                        <strong>Precision cooling diagnostics</strong>
+                                        <p>Cabin comfort, airflow balance, and leak control handled in one place.</p>
+                                    </div>
+                                </div>
+                                <div class="about-showcase-grid">
+                                    <div>
+                                        <strong>Hybrid-ready</strong>
+                                        <span>Modern vehicle systems</span>
+                                    </div>
+                                    <div>
+                                        <strong>OEM parts</strong>
+                                        <span>Reliable long-term fixes</span>
+                                    </div>
+                                    <div>
+                                        <strong>Fast turnaround</strong>
+                                        <span>Same-day support available</span>
+                                    </div>
+                                    <div>
+                                        <strong>Transparent advice</strong>
+                                        <span>Only the work you need</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="about-img-glow"></div>
                     </div>
-                    <div class="experience-badge glass-card">
+                    <!-- <div class="experience-badge glass-card">
                         <span class="exp-number">30+</span>
                         <span class="exp-text">Years of<br>Experience</span>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="about-content" data-reveal>
                     <div class="section-label">
