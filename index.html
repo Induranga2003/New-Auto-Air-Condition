@@ -7,8 +7,7 @@
     <title>New Auto Air Condition - Vehicle AC Experts | Gampaha, Sri Lanka</title>
     <meta name="description"
         content="New Auto Air Condition - Expert vehicle air conditioning services in Gampaha, Sri Lanka. AC gas recharge, repair, maintenance, leak detection & compressor replacement. 30+ years experience. Call 077 663 5799.">
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230066FF'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white'>❄</text></svg>">
+    <link rel="icon" type="image/png" href="./assets/logo.png">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,27 +26,43 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ========== LOADING SCREEN ========== -->
-    <div id="loader" class="loader">
-        <div class="loader-content">
-            <div class="loader-ring">
-                <div class="loader-ring-inner"></div>
+    <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading New Auto Air Condition">
+        <div class="loader-shell">
+            <div class="loader-brand">
+                <img src="./assets/logo.png" alt="" aria-hidden="true">
             </div>
-            <div class="loader-text">New<span>Auto</span> Air Condition</div>
+            <div class="loader-system" aria-hidden="true">
+                <div class="loader-gauge">
+                    <div class="loader-gauge-ring"></div>
+                    <div class="loader-fan">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="loader-airflow">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="loader-text">
+                <span class="loader-kicker">Vehicle AC Specialists</span>
+                <strong>New Auto Air Condition</strong>
+                <small>Preparing your service experience</small>
+            </div>
             <div class="loader-bar">
                 <div class="loader-bar-fill"></div>
             </div>
+            <div class="loader-percent">Cooling system check</div>
         </div>
     </div>
-
     <!-- ========== HEADER / NAVBAR ========== -->
     <header id="header">
         <nav class="navbar">
             <div class="nav-container">
-                <a href="#home" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-snowflake"></i>
-                    </div>
-                    <span>New Auto Air Condition</span>
+                <a href="#home" class="logo" aria-label="New Auto Air Condition home">
+                    <img src="./assets/logo.png" alt="New Auto Air Condition" class="brand-logo">
                 </a>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="active"><span>Home</span></a></li>
@@ -763,9 +778,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="#home" class="footer-logo">
-                        <div class="logo-icon sm"><i class="fas fa-snowflake"></i></div>
-                        New<span>Auto</span> Air Condition
+                    <a href="#home" class="footer-logo" aria-label="New Auto Air Condition home">
+                        <img src="./assets/logo.png" alt="New Auto Air Condition" class="footer-brand-logo">
                     </a>
                     <p>Your trusted partner for all vehicle air conditioning needs. Quality service, fair pricing, and
                         expert technicians.</p>
